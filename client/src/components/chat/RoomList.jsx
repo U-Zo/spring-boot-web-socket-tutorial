@@ -1,29 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Room = ({ name }) => {
+const Room = React.memo(({ name }) => {
   return (
     <li>
       <div>{name}</div>
     </li>
   );
-};
+});
 
-const RoomList = ({ loading, roomList, error }) => {
+const RoomList = ({ nickname, loading, roomList, error, onChange }) => {
   if (error) {
     return <div>에러가 발생했습니다.</div>;
   }
 
   return (
-    <ul>
-      {!loading &&
-        roomList &&
-        roomList.map((room) => (
-          <Link to={`/room/${room.roomId}`}>
-            <Room name={room.name} />
-          </Link>
-        ))}
-    </ul>
+    <div>
+      <div>
+        <input
+          type="text"
+          value={nickname}
+          onChange={onChange}
+          placeholder="닉네임을 입력하세요."
+        />
+      </div>
+      <ul>
+        {!loading &&
+          roomList &&
+          roomList.map((room) => (
+            <Link to={`/room/${room.roomId}`}>
+              <Room name={room.name} />
+            </Link>
+          ))}
+      </ul>
+    </div>
   );
 };
 

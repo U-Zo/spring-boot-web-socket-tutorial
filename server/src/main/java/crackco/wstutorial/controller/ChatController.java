@@ -18,6 +18,8 @@ public class ChatController {
             message.setMessage(message.getSender() + "님이 입장하셨습니다.");
         }
 
-        messageSendingOperations.convertAndSend("/sub/chat/room" + message.getRoomId(), message);
+        System.out.println(message);
+
+        messageSendingOperations.convertAndSend("/sub/chat/room/" + message.getRoomId(), message);
     }
 }
